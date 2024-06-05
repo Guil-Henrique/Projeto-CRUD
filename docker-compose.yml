@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  web1:
+    build: ./web
+    ports:
+      - "3001:3000" #porta do serviço 1
+    depends_on:
+      - mongodb
+
+  web2:
+    build: ./web
+    ports:
+      - "3002:3000" #porta do serviço 2
+    depends_on:
+      - mongodb
+
+  web3:
+    build: ./web
+    ports:
+      - "3003:3000" #porta do serviço 3
+    depends_on:
+      - mongodb
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web1
+      - web2
+      - web3
+
+volumes:
+  mongodb_data:

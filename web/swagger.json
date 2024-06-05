@@ -1,0 +1,136 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Documentação da API",
+    "version": "1.0.0",
+    "description": "Documentação da API para operações CRUD em um serviço web."
+  },
+  "paths": {
+    "/items": {
+      "get": {
+        "summary": "Listar itens",
+        "description": "Retorna uma lista de todos os itens.",
+        "responses": {
+          "200": {
+            "description": "OK. Retorna uma lista de itens."
+          }
+        }
+      },
+      "post": {
+        "summary": "Criar um novo item",
+        "description": "Cria um novo item na lista.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Novo item"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Item criado com sucesso."
+          },
+          "400": {
+            "description": "Requisição inválida."
+          }
+        }
+      }
+    },
+    "/items/{id}": {
+      "get": {
+        "summary": "Obter um item pelo ID",
+        "description": "Retorna um item específico com base no ID fornecido.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID do item a ser obtido."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. Retorna o item solicitado."
+          },
+          "404": {
+            "description": "Item não encontrado."
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar um item pelo ID",
+        "description": "Atualiza um item existente com base no ID fornecido.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID do item a ser atualizado."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Item atualizado"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item atualizado com sucesso."
+          },
+          "404": {
+            "description": "Item não encontrado."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Excluir um item pelo ID",
+        "description": "Exclui um item existente com base no ID fornecido.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID do item a ser excluído."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Item excluído com sucesso."
+          },
+          "404": {
+            "description": "Item não encontrado."
+          }
+        }
+      }
+    }
+  }
+}
